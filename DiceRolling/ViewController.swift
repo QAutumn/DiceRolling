@@ -8,18 +8,36 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    let diceArr = ["dice1", "dice2", "dice3", "dice4", "dice5", "dice6"]
+    
     @IBOutlet weak var diceImageView: UIImageView!
     @IBOutlet weak var diceImageView2: UIImageView!
+    
     @IBAction func roll(_ sender: Any) {
-        let rand1 = Int.random(in: 1...6)
-        let rand2 = Int.random(in: 1...6)
-        diceImageView.image = UIImage(named: "dice\(rand1)")
-        diceImageView2.image = UIImage(named: "dice\(rand2)")
+        updateDiceImages()
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        updateDiceImages()
+        
+    }
+    
+    func updateDiceImages(){
+        let index1 = Int.random(in: 0...5)
+        let index2 = Int.random(in: 0...5)
+        diceImageView.image = UIImage(named: diceArr[index1])
+        diceImageView2.image = UIImage(named: diceArr[index2])
+        print("!")
+    }
+    
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        #if DEBUG
+        print("1")
+        #endif
+        view.backgroundColor = .yellow
+        updateDiceImages()
     }
 }
 
